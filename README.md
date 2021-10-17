@@ -150,4 +150,7 @@ public class Membership {
     } 
      .. getter/setter Method 생략
 ```
+Payment 서비스의 PolicyHandler.java rental 완료시 Payment 이력을 처리한다.
 
+```java
+```
