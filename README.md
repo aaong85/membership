@@ -24,11 +24,10 @@
 
 1. 관리자는 멤버십상품을 등록/삭제/수정할 수 있다.
 2. 결제승인된 내역을 자동으로 판매수량을 update한다
-3. 관리자는 멤버십가입 현황을 조회할 수 있다.
-4. 멤버십상품을 구매하면 결제단계로 넘어간다.
-5. 멤버십상품을 취소하면 결제가 취소된다.
-6. 고객은 모든 진행사항을 조회 가능하다.
-7. 구매가 완료되면 만료일자는 1년으로 설정한다
+3. 멤버십상품을 구매하면 결제단계로 넘어간다.
+4. 멤버십상품을 취소하면 결제가 취소된다.
+5. 고객은 모든 진행사항을 조회 가능하다.
+6. 구매가 완료되면 만료일자는 1년으로 설정한다
 
 # 분석/설계
 
@@ -57,7 +56,7 @@
 ![boundedct](https://user-images.githubusercontent.com/90189785/137633989-7d8ef459-df53-4ee6-942f-a35b4864f781.PNG)
 
 ### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
-![policy_ct](https://user-images.githubusercontent.com/90189785/137634668-80ba2442-a5a9-481e-a725-a02992c3209c.PNG)
+![policy_ct](https://user-images.githubusercontent.com/90189785/137634807-ee27786b-f9f7-44f2-9441-65dbc3289ffb.PNG)
 
 ### 완성된 1차 모형
 ![complete](https://user-images.githubusercontent.com/90189785/137634349-0064e697-e679-4103-8d27-246bad63e343.PNG)
