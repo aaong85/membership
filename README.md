@@ -78,6 +78,7 @@
 # 구현
 분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라,구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다 (각자의 포트넘버는 8081 ~ 8084, 8088이다)
 
+```shell
 cd membership
 mvn spring-boot:run
 
@@ -92,4 +93,14 @@ mvn spring-boot:run
 
 cd gateway
 mvn spring-boot:run 
+```
+
+## DDD(Domain-Driven-Design)의 적용
+msaez Event-Storming을 통해 구현한 Aggregate 단위로 Entity 를 정의 하였으며,
+Entity Pattern 과 Repository Pattern을 적용하기 위해 Spring Data REST 의 RestRepository 를 적용하였다.
+
+membership 서비스의 membership.java
+
+```java
+
 
