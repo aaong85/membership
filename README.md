@@ -102,5 +102,52 @@ Entity Pattern 과 Repository Pattern을 적용하기 위해 Spring Data REST �
 membership 서비스의 membership.java
 
 ```java
+package membership.system;
 
+import javax.persistence.*;
+import org.springframework.beans.BeanUtils;
+import java.util.List;
+import java.util.Date;
+
+@Entity
+@Table(name = "Membership_table")
+public class Membership {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long memId;
+    private Integer productId;
+    private String productName;
+    private Integer price;
+    private Integer customerId;
+    private Boolean memStatus;
+
+    @PostPersist
+    public void onPostPersist() {
+        MemPurchased memPurchased = new MemPurchased();
+        BeanUtils.copyProperties(this, memPurchased);
+        memPurchased.publishAfterCommit();
+
+        MemChanceled memChanceled = new MemChanceled();
+        BeanUtils.copyProperties(this, memChanceled);
+        memChanceled.publishAfterCommit();
+
+    }
+
+    @PostUpdate
+    public void onPostUpdate() {
+
+        if ("RETURN".equals(this.rentStatus)) { // 구매 처리 Publish
+            MemPurchased bookReturned = new MemPurchased();
+            BeanUtils.copyProperties(this, bookReturned);
+            bookReturned.publishAfterCommit();
+
+        } else if ("DELAY".equals(this.rentStatus)) { // 취소 처리 Publish
+            MemChanceled returnDelayed = new MemChanceled();
+            BeanUtils.copyProperties(this, returnDelayed);
+            returnDelayed.publishAfterCommit();
+        }
+    }
+     .. getter/setter Method 생략
+```
 
