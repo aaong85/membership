@@ -134,20 +134,20 @@ public class Membership {
 
     }
 
-    @PostUpdate
-    public void onPostUpdate() {
+    @PostUpdate 
+    public void onPostUpdate(){
 
-        if ("RETURN".equals(this.rentStatus)) { // 구매 처리 Publish
-            MemPurchased bookReturned = new MemPurchased();
-            BeanUtils.copyProperties(this, bookReturned);
-            bookReturned.publishAfterCommit();
+        if("RETURN".equals(this.memStatus)){           // 구매처리 Publish
+            MemPurchased memPurchased = new MemPurchased();
+            BeanUtils.copyProperties(this, memPurchased);
+            memPurchased.publishAfterCommit();
 
-        } else if ("DELAY".equals(this.rentStatus)) { // 취소 처리 Publish
-            MemChanceled returnDelayed = new MemChanceled();
-            BeanUtils.copyProperties(this, returnDelayed);
-            returnDelayed.publishAfterCommit();
+        } else if("DELAY".equals(this.memStatus)){     // 취소처리 Publish
+            MemChanceled memChanceled = new MemChanceled();
+            BeanUtils.copyProperties(this, memChanceled);
+            memChanceled.publishAfterCommit();
         }
-    }
+    } 
      .. getter/setter Method 생략
 ```
 
