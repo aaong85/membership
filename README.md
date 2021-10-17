@@ -1,4 +1,4 @@
-# membership
+# Membership
 
 ## 고객 유료 멤버십 관리 시스템   
 
@@ -19,3 +19,45 @@
     - [동기식 호출 / 서킷 브레이킹 / 장애격리](#동기식-호출-서킷-브레이킹-장애격리)
     - [오토스케일 아웃](#오토스케일-아웃)
     - [무정지 재배포](#무정지-재배포)
+
+# 서비스 시나리오
+
+1. 관리자는 멤버십상품을 등록/삭제/수정할 수 있다.
+2. 결제승인된 내역을 자동으로 판매수량을 update한다
+3. 관리자는 멤버십가입 현황을 조회할 수 있다.
+4. 멤버십상품을 구매하면 결제단계로 넘어간다.
+5. 멤버십상품을 취소하면 결제가 취소된다.
+6. 고객은 모든 진행사항을 조회 가능하다.
+7. 구매가 완료되면 만료일자는 1년으로 설정한다
+
+# 분석/설계
+
+## AS-IS 조직 (Horizontally-Aligned)
+![image](https://user-images.githubusercontent.com/89369983/133180330-14093197-2864-4b9c-8e5b-6ec6555e49f5.png)
+
+## TO-BE 조직 (Vertically-Aligned)
+![image](https://user-images.githubusercontent.com/90189785/137633685-b1c3ced9-5fd1-419c-b9a0-63eae2027628.PNG)
+
+## Event Storming 결과
+* MSAEz 로 모델링한 이벤트스토밍 결과: https://www.msaez.io/#/storming/sBSoKIMynLR2owUN1kjnRfJohAj2/cdf97eea37ca9195aa3030282c1c9412
+
+### 이벤트 도출
+![event도출](https://user-images.githubusercontent.com/90189785/137633872-1a8b125d-5101-4c7b-a578-371b14698b03.PNG)
+
+### 부적격 이벤트 탈락
+![부적격event](https://user-images.githubusercontent.com/90189785/137633898-0c29505e-4f9e-439f-9058-170cc2328425.PNG)
+
+### 액터, 커맨드 부착하여 읽기 좋게
+![action](https://user-images.githubusercontent.com/90189785/137633932-9b34fef0-12cc-4469-bb1e-5337487fe6cd.PNG)
+
+### 어그리게잇으로 묶기
+![aggregate](https://user-images.githubusercontent.com/90189785/137633952-131da630-b7ea-4c89-9bc7-2810c349ae8f.PNG)
+
+### 바운디드 컨텍스트로 묶기
+![boundedct](https://user-images.githubusercontent.com/90189785/137633989-7d8ef459-df53-4ee6-942f-a35b4864f781.PNG)
+
+### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
+![policy_ct](https://user-images.githubusercontent.com/90189785/137634016-3dfbf9f3-f850-48bc-bff9-741fab94d31b.PNG)
+
+### 완성된 1차 모형
+![complete](https://user-images.githubusercontent.com/88808251/133172930-a879c2ec-9439-4089-850f-03853375e5e2.png)
