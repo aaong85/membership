@@ -228,8 +228,12 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 각 서비스들의 Rest API 호출을 통하여 테스트를 수행하였음
 
 ```shell
+멤버십 상품등록 처리
+http post localhost:8081/Product memId=1 productId=1 productName=CLUB price=30000 customerId=1 memStatus=USE
+TBD
 멤버십 구매 처리
 TBD
+
 ```
 
 
