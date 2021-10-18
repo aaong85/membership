@@ -232,6 +232,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 http post localhost:8081/Product memId=1 productId=1 productName=CLUB price=30000 customerId=1 memStatus=USE
 TBD
 멤버십 구매 처리
+http post localhost:8083/Membership memId=1 productId=1 productName=CLUB price=30000 customerId=1 memStatus=USE
 TBD
 
 ```
