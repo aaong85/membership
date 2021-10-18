@@ -223,3 +223,92 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
 }
 ```
+
+## 적용 후 REST API 의 테스트
+각 서비스들의 Rest API 호출을 통하여 테스트를 수행하였음
+
+```shell
+멤버십 구매 처리
+TBD
+```
+
+
+## Gateway 적용
+Gateay 구성를 통하여 각 서비스들의 진입점을 설정하여 라우팅 설정하였다.(8081~8084, 8088)
+
+```yaml
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: Product
+          uri: http://localhost:8081
+          predicates:
+            - Path=/products/** 
+        - id: Payment
+          uri: http://localhost:8082
+          predicates:
+            - Path=/payments/** 
+        - id: Membership
+          uri: http://localhost:8083
+          predicates:
+            - Path=/memberships/** 
+        - id: View
+          uri: http://localhost:8084
+          predicates:
+            - Path= /mypages/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: Product
+          uri: http://Product:8080
+          predicates:
+            - Path=/products/** 
+        - id: Payment
+          uri: http://Payment:8080
+          predicates:
+            - Path=/payments/** 
+        - id: Membership
+          uri: http://Membership:8080
+          predicates:
+            - Path=/memberships/** 
+        - id: View
+          uri: http://View:8080
+          predicates:
+            - Path= /mypages/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
+```
