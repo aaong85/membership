@@ -137,7 +137,7 @@ public class Membership {
     @PostUpdate
     public void onPostUpdate() {
 
-        if ("BUY".equals(this.memStatus)) { // 구매처리 Publish
+        if ("USE".equals(this.memStatus)) { // 구매처리 Publish
             MemPurchased memPurchased = new MemPurchased();
             BeanUtils.copyProperties(this, memPurchased);
             memPurchased.publishAfterCommit();
