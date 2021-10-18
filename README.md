@@ -134,20 +134,20 @@ public class Membership {
 
     }
 
-    @PostUpdate 
-    public void onPostUpdate(){
+    @PostUpdate
+    public void onPostUpdate() {
 
-        if("RETURN".equals(this.memStatus)){           // 구매처리 Publish
+        if ("BUY".equals(this.memStatus)) { // 구매처리 Publish
             MemPurchased memPurchased = new MemPurchased();
             BeanUtils.copyProperties(this, memPurchased);
             memPurchased.publishAfterCommit();
 
-        } else if("DELAY".equals(this.memStatus)){     // 취소처리 Publish
+        } else if ("CANC".equals(this.memStatus)) { // 취소처리 Publish
             MemChanceled memChanceled = new MemChanceled();
             BeanUtils.copyProperties(this, memChanceled);
             memChanceled.publishAfterCommit();
         }
-    } 
+    }
      .. getter/setter Method 생략
 ```
 Payment 서비스의 PolicyHandler.java Purchase/cancel 완료 시 Payment 이력을 처리한다.
