@@ -184,4 +184,25 @@ public class PolicyHandler {
         paymentRepository.save(payment);
 
     }
+
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverMemChanceled_CancelMem(@Payload MemChanceled memChanceled) {
+
+        if (!memChanceled.validate())
+            return;
+
+        System.out.println("\n\n##### listener CancelMem : " + memChanceled.toJson() + "\n\n");
+    
+        Payment payment = new Payment();
+        payment.setMemId(memChanceled.getMemId());
+        payment.setProductId(memChanceled.getProductId());
+        payment.setPrice(memChanceled.getPrice());
+        payment.setCustomerId(memChanceled.getCustomerId());
+        paymentRepository.save(payment);
+
+    }
+
+    @StreamListener(KafkaProcessor.INPUT)
+    public void whatever(@Payload String eventString) {
+    }
 ```
