@@ -312,3 +312,18 @@ spring:
 server:
   port: 8080
 ```
+
+## CQRS 적용
+TBD
+
+## 폴리글랏 퍼시스턴스
+TBD
+
+## 동기식 호출과 Fallback 처리
+TBD
+
+## 비동기식 호출 / 시간적 디커플링 / 장애격리 / 최종 (Eventual) 일관성 테스트
+TBD
+
+# 운영
+TBD
