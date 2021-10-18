@@ -153,4 +153,35 @@ public class Membership {
 Payment 서비스의 PolicyHandler.java Purchase/cancel 완료 시 Payment 이력을 처리한다.
 
 ```java
+package membership.system;
+
+import membership.system.config.kafka.KafkaProcessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PolicyHandler {
+    @Autowired
+    PaymentRepository paymentRepository;
+
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverMemPurchased_MemPerchase(@Payload MemPurchased memPurchased) {
+
+        if (!memPurchased.validate())
+            return;
+
+        System.out.println("\n\n##### listener PerchaseMem : " + memPurchased.toJson() + "\n\n");
+        Payment payment = new Payment();
+
+        payment.setMemId(memPurchased.getMemId());
+        payment.setProductId(memPurchased.getProductId());
+        payment.setPrice(memPurchased.getPrice());
+        payment.setCustomerId(memPurchased.getCustomerId());
+        paymentRepository.save(payment);
+
+    }
 ```
