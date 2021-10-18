@@ -58,13 +58,13 @@
 ![boundedct](https://user-images.githubusercontent.com/90189785/137633989-7d8ef459-df53-4ee6-942f-a35b4864f781.PNG)
 
 ### 폴리시의 이동과 컨텍스트 매핑 (점선은 Pub/Sub, 실선은 Req/Resp)
-![policy_ct](https://user-images.githubusercontent.com/90189785/137634807-ee27786b-f9f7-44f2-9441-65dbc3289ffb.PNG)
+![policy_ct](https://user-images.githubusercontent.com/90189785/137658231-f8f62bb5-232f-4f14-bfe1-4d5e1f802989.PNG)
 
 ### 완성된 1차 모형
-![complete](https://user-images.githubusercontent.com/90189785/137634349-0064e697-e679-4103-8d27-246bad63e343.PNG)
+![complete](https://user-images.githubusercontent.com/90189785/137658541-86979d57-5375-418f-b3b2-e6bf99773eac.PNG)
 
 ### 1차 완성본에 대한 기능적/비기능적 요구사항을 커버하는지 검증
-![검증1](https://user-images.githubusercontent.com/90189785/137635075-8d99df2f-d40b-4db0-a42a-8fdc5b575f66.jpg)
+![검증1](https://user-images.githubusercontent.com/90189785/137658657-be6ecf95-3353-4f46-b618-8783549d9bee.jpg)
 
 1. 관리자는 멤버십상품을 등록/삭제/수정할 수 있다. (ok)
 2. 고객은 멤버십 상품을 구매한다. (ok)
@@ -114,13 +114,13 @@ import java.util.Date;
 public class Membership {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private Long memId;
-    private Integer productId;
+    private Long productId;
     private String productName;
-    private Integer price;
-    private Integer customerId;
-    private Boolean memStatus;
+    private Long price;
+    private Long customerId;
+    private String memStatus;
 
     @PostPersist
     public void onPostPersist() {
