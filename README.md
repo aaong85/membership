@@ -150,6 +150,7 @@ public class Membership {
     }
      .. getter/setter Method 생략
 ```
+
 Payment 서비스의 PolicyHandler.java Purchase/cancel 완료 시 Payment 이력을 처리한다.
 
 ```java
@@ -205,6 +206,20 @@ public class PolicyHandler {
     @StreamListener(KafkaProcessor.INPUT)
     public void whatever(@Payload String eventString) {
     }
+
+}
+```
+Product 서비스의 ProductRepository.java
+
+```java
+package membership.system;
+
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+
+@RepositoryRestResource(collectionResourceRel="products", path="products")
+public interface ProductRepository extends PagingAndSortingRepository<Product, Long>{
+
 
 }
 ```
